@@ -1,0 +1,38 @@
+server:
+  servlet:
+    context-path:
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: restful-generator
+  datasource:
+    driver-class-name: org.sqlite.JDBC
+    url: jdbc:sqlite:generator.db
+    username:
+    password:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 813246037894-raqfcjpur3kgor7hcljdgjjo2c93hqak.apps.googleusercontent.com
+            client-secret: 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
+          github:
+            client-id: 6ce0758b8d7349d2f93f
+            client-secret: e95c3f69835d4dca2d8874fb797b4d1526c52db2
+
+springdoc:
+  swagger-ui:
+    # http://localhost:8080/
+    path: /
+  api-docs:
+    # http://localhost:8080/api-docs
+    path: /api-docs
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    org.springframework.security: INFO
