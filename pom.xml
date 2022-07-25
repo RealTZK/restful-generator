@@ -68,7 +68,7 @@
     </build>
 
     <modules>
-        <module>tenant</module>
+        <module>admin</module>
         <module>starter</module>
         <module>common</module>
     </modules>

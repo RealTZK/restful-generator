@@ -16,12 +16,12 @@
         <!--内部依赖-->
         <dependency>
             <groupId>io.tzk.restful</groupId>
-            <artifactId>tenant-support</artifactId>
+            <artifactId>admin-support</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>io.tzk.restful</groupId>
-            <artifactId>tenant-rest</artifactId>
+            <artifactId>admin-rest</artifactId>
             <version>${project.version}</version>
         </dependency>
 
