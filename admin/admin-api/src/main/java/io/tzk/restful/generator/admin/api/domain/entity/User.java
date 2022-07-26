@@ -29,7 +29,7 @@ import static io.swagger.v3.oas.annotations.media.Schema.AccessMode;
 public class User extends BaseEntity implements UserDetails {
 
     @Schema(title = "账户")
-    @Column(unique = true, nullable = false)
+    @Column(unique = true)
     private String account;
 
     @Schema(title = "用户密码", accessMode = AccessMode.WRITE_ONLY)
@@ -56,7 +56,7 @@ public class User extends BaseEntity implements UserDetails {
     @Schema(title = "账号是否可用")
     private Boolean enabled;
 
-    @Schema(title = "角色")
+    @Schema(hidden = true)
     @ManyToMany
     private Set<Role> roles;
 
@@ -86,6 +86,6 @@ public class User extends BaseEntity implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return isEnabled();
+        return enabled;
     }
 }

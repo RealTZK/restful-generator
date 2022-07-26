@@ -1,5 +1,6 @@
 package io.tzk.restful.generator.admin.api;
 
+import io.tzk.restful.generator.ApplicationStarter;
 import io.tzk.restful.generator.admin.api.domain.entity.User;
 import io.tzk.restful.generator.admin.api.service.UserService;
 import org.junit.Test;
@@ -11,7 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import javax.annotation.Resource;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(classes = ApplicationStarter.class)
 public class UserServiceTest {
 
     @Resource

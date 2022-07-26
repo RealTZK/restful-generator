@@ -5,22 +5,23 @@ import io.tzk.restful.generator.admin.api.domain.entity.Role;
 import io.tzk.restful.generator.admin.api.domain.entity.User;
 import io.tzk.restful.generator.admin.support.repository.RoleRepository;
 import io.tzk.restful.generator.admin.support.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.annotation.Resource;
 import java.util.Set;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ApplicationStarter.class)
-@RequiredArgsConstructor
 public class JPACascadeTest {
 
-    private final UserRepository userRepository;
+    @Resource
+    private UserRepository userRepository;
 
-    private final RoleRepository roleRepository;
+    @Resource
+    private RoleRepository roleRepository;
 
     @Test
     public void save1() {
