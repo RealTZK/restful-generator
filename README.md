@@ -1,0 +1,1 @@
+禁止使用PostMapping,控制器方法必须加上[@PreAuthorize("hasAuthority('{method}:{path}')")]

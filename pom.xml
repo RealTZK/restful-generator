@@ -21,6 +21,8 @@
         <encoding>UTF-8</encoding>
         <mapstruct.version>1.5.2.Final</mapstruct.version>
         <springdoc.version>1.6.9</springdoc.version>
+        <jjwt.version>0.9.0</jjwt.version>
+        <mapstruct.version>1.5.2.Final</mapstruct.version>
     </properties>
 
     <dependencyManagement>
@@ -29,6 +31,21 @@
                 <groupId>org.springdoc</groupId>
                 <artifactId>springdoc-openapi-ui</artifactId>
                 <version>${springdoc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-security</artifactId>
+                <version>${springdoc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${mapstruct.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -71,5 +88,6 @@
         <module>admin</module>
         <module>starter</module>
         <module>common</module>
+        <module>common/common-util</module>
     </modules>
 </project>

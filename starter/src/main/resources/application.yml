@@ -8,18 +8,29 @@ spring:
   application:
     name: restful-generator
   datasource:
-    driver-class-name: org.sqlite.JDBC
-    url: jdbc:sqlite:generator.db
-    username:
-    password:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:file:./db/restful-generator
+    username: root
+    password: root
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+  h2:
+    console:
+      # http://localhost:8080/h2-console
+      enabled: true
+  sql:
+    init:
+      username: root
+      password: root
 
 springdoc:
   swagger-ui:
     # http://localhost:8080/swagger
-    path: /swagger
+    path: /swagger-ui
   api-docs:
     # http://localhost:8080/api-docs
     path: /api-docs
+  headers-to-match:
 
 logging:
   level:

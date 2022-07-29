@@ -6,10 +6,9 @@ import io.tzk.restful.generator.admin.api.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,7 +20,7 @@ public class UserController {
 
     @PostMapping("/user")
     @Operation(summary = "创建用户")
-    public ResponseEntity<Long> create(User condition) {
+    public ResponseEntity<Long> create(@RequestBody @Valid User condition) {
         condition.setPassword(passwordEncoder.encode(condition.getPassword()));
         return ResponseEntity.ok(userService.save(condition));
     }

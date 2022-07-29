@@ -23,5 +23,10 @@
             <artifactId>admin-api</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>io.tzk.restful</groupId>
+            <artifactId>common-support</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 </project>

@@ -8,8 +8,12 @@ import io.tzk.restful.generator.admin.support.repository.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.authentication.TestingAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.util.Set;
 
@@ -21,14 +25,26 @@ public class JPACascadeTest {
     private UserRepository userRepository;
 
     @Resource
+    private PasswordEncoder passwordEncoder;
+
+    @Resource
     private RoleRepository roleRepository;
+
+    @PostConstruct
+    public void init() {
+        userRepository.findByUsername("root")
+                .map(user -> new TestingAuthenticationToken(user, null))
+                .ifPresent(SecurityContextHolder.getContext()::setAuthentication);
+    }
 
     @Test
     public void save1() {
         var user = User.builder()
                 .username("root")
-                .account("root")
-                .password("generator")
+                .nickname("root")
+                .createUser("root")
+                .updateUser("root")
+                .password(passwordEncoder.encode("root"))
                 .build();
         userRepository.save(user);
     }
@@ -36,25 +52,27 @@ public class JPACascadeTest {
     @Test
     public void save2() {
         var role = Role.builder()
-                .roleName("超级管理员")
+                .roleName("root")
                 .build();
         roleRepository.save(role);
     }
 
     @Test
-    public void testAdd1() {
-        var user = userRepository.findById(1L).get();
-        var role = roleRepository.findById(1L).get();
-        user.setRoles(Set.of(role));
-        userRepository.save(user);
+    public void saveArray() {
+        roleRepository
+                .findById(4L)
+                .ifPresent(role -> {
+                    role.setAuthorities(Set.of("ALL"));
+                    roleRepository.save(role);
+                });
     }
 
     @Test
-    public void testAdd2() {
-        var user = userRepository.findById(1L).get();
-        var role = roleRepository.findById(1L).get();
-        role.setUsers(Set.of(user));
-        roleRepository.save(role);
+    public void testAdd1() {
+        var user = userRepository.findByUsername("root").get();
+        var role = roleRepository.findByRoleName("root").get();
+        user.setRoles(Set.of(role));
+        userRepository.save(user);
     }
 
     @Test

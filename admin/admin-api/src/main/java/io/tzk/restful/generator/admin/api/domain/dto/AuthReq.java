@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 @Schema(title = "登录参数")
 public record AuthReq(
         @Schema(title = "账户", required = true)
-        @NotBlank String account,
+        @NotBlank String username,
         @Schema(title = "密码", required = true)
         @NotBlank String password) {
 
