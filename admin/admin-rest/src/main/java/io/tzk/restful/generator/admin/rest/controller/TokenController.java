@@ -1,6 +1,7 @@
 package io.tzk.restful.generator.admin.rest.controller;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import io.tzk.restful.generator.admin.api.domain.dto.Auth;
 import io.tzk.restful.generator.admin.api.domain.dto.AuthReq;
 import io.tzk.restful.generator.admin.api.service.TokenService;
 import io.tzk.restful.generator.admin.rest.util.JwtUtil;
@@ -11,8 +12,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,12 +37,19 @@ public class TokenController {
 
     @PostMapping
     @PreAuthorize("isAnonymous()")
-    public ResponseEntity<String> login(@Valid @RequestBody AuthReq req, HttpServletResponse response) {
+    public ResponseEntity<String> login(@Valid AuthReq req, HttpServletResponse response) {
         Optional.of(tokenService.login(req))
                 .map(tokenMapper::map)
                 .map(serializer::serialize)
                 .map(JwtUtil::createJWT)
                 .ifPresent(jwt -> response.setHeader(HttpHeaders.AUTHORIZATION, TOKEN_PREFIX + jwt));
+        return ResponseEntity.status(HttpStatus.CREATED.value()).body(HttpStatus.CREATED.getReasonPhrase());
+    }
+
+    @GetMapping
+    @PreAuthorize("isAnonymous()")
+    public ResponseEntity<String> info(@Valid Auth req) {
+        System.out.println(req);
         return ResponseEntity.status(HttpStatus.CREATED.value()).body(HttpStatus.CREATED.getReasonPhrase());
     }
 

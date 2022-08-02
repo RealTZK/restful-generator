@@ -54,11 +54,10 @@ public class JwtUtil {
 
     public static Claims parseJWT(String jwt) {
         try {
-            Claims body = Jwts.parser()
+            return Jwts.parser()
                     .setSigningKey(generalKey())
                     .parseClaimsJws(jwt)
                     .getBody();
-            return body;
         }catch (Exception e){
             throw new JwtException("token has been tampered");
         }

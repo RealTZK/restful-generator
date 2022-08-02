@@ -37,6 +37,7 @@ public class SecurityConfig {
                 .sessionManagement(conf -> conf.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(conf -> conf
                         .antMatchers(HttpMethod.POST, "/token").permitAll()
+                        .antMatchers(HttpMethod.GET, "/token").permitAll()
                         .antMatchers(HttpMethod.GET, "/swagger-ui/*").permitAll()
                         .antMatchers(HttpMethod.GET, "/api-docs/*").permitAll()
                         .antMatchers(HttpMethod.GET, "/api-docs").permitAll()
