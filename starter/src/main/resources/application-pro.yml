@@ -7,7 +7,7 @@ spring:
       hibernate:
         format_sql: true
   datasource:
-    url: jdbc:h2:file:.\db\restful-generator
+    url: jdbc:h2:file:D:\github\restful-generator\db\restful-generator
 
 logging:
   level:

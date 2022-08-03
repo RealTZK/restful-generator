@@ -51,8 +51,9 @@ public class RootInitializer {
                         .createUser("system")
                         .updateUser("system")
                         .password(passwordEncoder.encode(password))
+                        .roles(Set.of(role))
                         .build()));
-        if (!user.getRoles().contains(role)) {
+        if (user.getRoles() == null || !user.getRoles().contains(role)) {
             user.setRoles(Set.of(role));
             userRepository.save(user);
         }
@@ -64,7 +65,7 @@ public class RootInitializer {
                     Stream<String> methods = mappingInfo.getMethodsCondition()
                             .getMethods()
                             .stream().map(Enum::name);
-                    Stream<String> patterns = mappingInfo.getPathPatternsCondition()
+                    Stream<String> patterns = Objects.requireNonNull(mappingInfo.getPathPatternsCondition())
                             .getPatterns()
                             .stream().map(PathPattern::getPatternString);
                     return methods

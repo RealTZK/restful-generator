@@ -30,7 +30,6 @@ springdoc:
   api-docs:
     # http://localhost:8080/api-docs
     path: /api-docs
-  headers-to-match:
 
 logging:
   level:
