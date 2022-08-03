@@ -1,4 +1,4 @@
-package io.tzk.restful.generator.common.util.mapper;
+package io.tzk.restful.generator.common.util.serialize;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

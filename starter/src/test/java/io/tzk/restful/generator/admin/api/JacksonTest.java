@@ -2,7 +2,7 @@ package io.tzk.restful.generator.admin.api;
 
 import io.tzk.restful.generator.ApplicationStarter;
 import io.tzk.restful.generator.admin.api.domain.PathGrantedAuthority;
-import io.tzk.restful.generator.common.util.mapper.JSON;
+import io.tzk.restful.generator.common.util.serialize.JSON;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;

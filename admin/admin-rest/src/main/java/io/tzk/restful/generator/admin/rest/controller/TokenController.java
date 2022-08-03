@@ -1,18 +1,16 @@
 package io.tzk.restful.generator.admin.rest.controller;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
-import io.tzk.restful.generator.admin.api.domain.dto.Auth;
 import io.tzk.restful.generator.admin.api.domain.dto.AuthReq;
 import io.tzk.restful.generator.admin.api.service.TokenService;
 import io.tzk.restful.generator.admin.rest.util.JwtUtil;
-import io.tzk.restful.generator.admin.rest.util.TokenMapper;
-import io.tzk.restful.generator.common.util.mapper.JSON;
+import io.tzk.restful.generator.admin.rest.util.TokenConverter;
+import io.tzk.restful.generator.common.util.serialize.JSON;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,23 +31,16 @@ public class TokenController {
 
     private final JSON serializer;
 
-    private final TokenMapper tokenMapper;
+    private final TokenConverter tokenConverter;
 
     @PostMapping
     @PreAuthorize("isAnonymous()")
     public ResponseEntity<String> login(@Valid AuthReq req, HttpServletResponse response) {
         Optional.of(tokenService.login(req))
-                .map(tokenMapper::map)
+                .map(tokenConverter::convert)
                 .map(serializer::serialize)
                 .map(JwtUtil::createJWT)
                 .ifPresent(jwt -> response.setHeader(HttpHeaders.AUTHORIZATION, TOKEN_PREFIX + jwt));
-        return ResponseEntity.status(HttpStatus.CREATED.value()).body(HttpStatus.CREATED.getReasonPhrase());
-    }
-
-    @GetMapping
-    @PreAuthorize("isAnonymous()")
-    public ResponseEntity<String> info(@Valid Auth req) {
-        System.out.println(req);
         return ResponseEntity.status(HttpStatus.CREATED.value()).body(HttpStatus.CREATED.getReasonPhrase());
     }
 

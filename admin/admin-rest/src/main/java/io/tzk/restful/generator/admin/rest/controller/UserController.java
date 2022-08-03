@@ -12,20 +12,21 @@ import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("user")
 public class UserController {
 
     private final UserService userService;
 
     private final PasswordEncoder passwordEncoder;
 
-    @PostMapping("/user")
+    @PostMapping
     @Operation(summary = "创建用户")
     public ResponseEntity<Long> create(@RequestBody @Valid User condition) {
         condition.setPassword(passwordEncoder.encode(condition.getPassword()));
         return ResponseEntity.ok(userService.save(condition));
     }
 
-    @GetMapping("/user/{userId}")
+    @GetMapping("{userId}")
     @Operation(summary = "查看用户")
     public ResponseEntity<User> get(@PathVariable(value = "userId") Long userId) {
         return ResponseEntity.ok(userService.getById(userId));

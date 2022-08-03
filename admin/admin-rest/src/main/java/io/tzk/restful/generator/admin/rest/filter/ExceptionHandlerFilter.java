@@ -10,6 +10,9 @@ import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * 用于处理filter期间抛出的异常,转发给全局异常处理器处理
+ */
 @Component
 public class ExceptionHandlerFilter extends OncePerRequestFilter {
 

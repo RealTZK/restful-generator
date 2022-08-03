@@ -6,10 +6,10 @@ import org.mapstruct.Mapper;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Mapper(componentModel = "spring")
-public interface TokenMapper {
+public interface TokenConverter {
 
-    TokenBody map(UserDetails userDetails);
+    TokenBody convert(UserDetails userDetails);
 
-    User map(TokenBody tokenBody);
+    User convert(TokenBody tokenBody);
 
 }
