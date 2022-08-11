@@ -1,16 +1,9 @@
 spring:
   jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: update
     properties:
       hibernate:
         format_sql: true
-  datasource:
-    url: jdbc:h2:file:.\db\restful-generator
-
-logging:
-  level:
-    org.hibernate.sql: debug
-    org.springframework.transaction: trace
-    org.hibernate.type.descriptor.sql: trace
+  h2:
+    console:
+      # http://localhost:8080/h2-console
+      enabled: true

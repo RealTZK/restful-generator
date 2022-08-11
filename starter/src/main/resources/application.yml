@@ -14,10 +14,9 @@ spring:
     password: root
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
-  h2:
-    console:
-      # http://localhost:8080/h2-console
-      enabled: true
+    show-sql: true
+    hibernate:
+      ddl-auto: update
   sql:
     init:
       username: root
@@ -36,3 +35,6 @@ logging:
     root: INFO
     org.springframework.web: INFO
     org.springframework.security: INFO
+    org.hibernate.sql: debug
+    org.hibernate.type.descriptor.sql: trace
+    org.springframework.transaction: trace

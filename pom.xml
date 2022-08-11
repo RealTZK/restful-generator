@@ -15,6 +15,8 @@
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
+    <name>restful-generator</name>
+
     <properties>
         <project.version>1.0.0-SNAPSHOT</project.version>
         <jdk.version>17</jdk.version>
@@ -23,6 +25,9 @@
         <springdoc.version>1.6.9</springdoc.version>
         <jjwt.version>0.9.0</jjwt.version>
         <mapstruct.version>1.5.2.Final</mapstruct.version>
+        <aether.version>1.1.0</aether.version>
+        <maven.version>3.3.9</maven.version>
+        <guava.version>31.1-jre</guava.version>
     </properties>
 
     <dependencyManagement>
@@ -46,6 +51,27 @@
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct</artifactId>
                 <version>${mapstruct.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.eclipse.aether</groupId>
+                <artifactId>aether-connector-basic</artifactId>
+                <version>${aether.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.aether</groupId>
+                <artifactId>aether-transport-http</artifactId>
+                <version>${aether.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.maven</groupId>
+                <artifactId>maven-aether-provider</artifactId>
+                <version>${maven.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -88,6 +114,6 @@
         <module>admin</module>
         <module>starter</module>
         <module>common</module>
-        <module>common/common-util</module>
+        <module>core</module>
     </modules>
 </project>

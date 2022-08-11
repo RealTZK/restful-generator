@@ -5,19 +5,16 @@ import io.tzk.restful.generator.admin.api.domain.entity.Role;
 import io.tzk.restful.generator.admin.api.domain.entity.User;
 import io.tzk.restful.generator.admin.support.repository.RoleRepository;
 import io.tzk.restful.generator.admin.support.repository.UserRepository;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.authentication.TestingAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.util.Set;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(classes = ApplicationStarter.class)
 public class JPACascadeTest {
 

@@ -1,14 +1,14 @@
-package io.tzk.restful.generator.admin.api.domain.dto;
+package io.tzk.restful.generator.admin.api.domain.dto.req;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import javax.validation.constraints.NotBlank;
 
-@Schema(title = "登录参数")
+@Schema(title = "login param")
 public record AuthReq(
-        @Schema(title = "账户", required = true)
+        @Schema(required = true)
         @NotBlank String username,
-        @Schema(title = "密码", required = true)
+        @Schema(required = true)
         @NotBlank String password) {
 
 }

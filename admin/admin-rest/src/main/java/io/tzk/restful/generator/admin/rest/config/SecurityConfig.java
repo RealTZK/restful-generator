@@ -54,7 +54,7 @@ public class SecurityConfig {
         //1.添加CORS配置信息
         CorsConfiguration config = new CorsConfiguration();
         //放行哪些原始域
-        config.addAllowedOrigin("*");
+        config.addAllowedOriginPattern("*");
         //是否发送Cookie信息
         config.setAllowCredentials(true);
         //放行哪些原始域(请求方式)

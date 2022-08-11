@@ -3,13 +3,10 @@ package io.tzk.restful.generator.admin.api;
 import io.tzk.restful.generator.ApplicationStarter;
 import io.tzk.restful.generator.admin.api.domain.PathGrantedAuthority;
 import io.tzk.restful.generator.common.util.serialize.JSON;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
-@RunWith(SpringRunner.class)
 @SpringBootTest(classes = ApplicationStarter.class)
 public class JacksonTest {
 

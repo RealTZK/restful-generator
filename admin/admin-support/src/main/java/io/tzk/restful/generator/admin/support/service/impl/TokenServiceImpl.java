@@ -1,6 +1,6 @@
 package io.tzk.restful.generator.admin.support.service.impl;
 
-import io.tzk.restful.generator.admin.api.domain.dto.AuthReq;
+import io.tzk.restful.generator.admin.api.domain.dto.req.AuthReq;
 import io.tzk.restful.generator.admin.api.domain.entity.User;
 import io.tzk.restful.generator.admin.api.service.TokenService;
 import lombok.RequiredArgsConstructor;

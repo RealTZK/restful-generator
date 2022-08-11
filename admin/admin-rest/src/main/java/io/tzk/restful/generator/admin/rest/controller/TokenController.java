@@ -1,7 +1,6 @@
 package io.tzk.restful.generator.admin.rest.controller;
 
-import io.swagger.v3.oas.annotations.tags.Tag;
-import io.tzk.restful.generator.admin.api.domain.dto.AuthReq;
+import io.tzk.restful.generator.admin.api.domain.dto.req.AuthReq;
 import io.tzk.restful.generator.admin.api.service.TokenService;
 import io.tzk.restful.generator.admin.rest.util.JwtUtil;
 import io.tzk.restful.generator.admin.rest.util.TokenConverter;
@@ -12,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,7 +21,6 @@ import java.util.Optional;
 
 import static io.tzk.restful.generator.admin.rest.util.JwtUtil.TOKEN_PREFIX;
 
-@Tag(name = "会话接口")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("token")
@@ -35,7 +34,7 @@ public class TokenController {
 
     @PostMapping
     @PreAuthorize("isAnonymous()")
-    public ResponseEntity<String> login(@Valid AuthReq req, HttpServletResponse response) {
+    public ResponseEntity<String> login(@RequestBody @Valid AuthReq req, HttpServletResponse response) {
         Optional.of(tokenService.login(req))
                 .map(tokenConverter::convert)
                 .map(serializer::serialize)

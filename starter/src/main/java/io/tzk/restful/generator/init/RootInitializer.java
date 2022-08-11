@@ -38,9 +38,15 @@ public class RootInitializer {
 
     @PostConstruct
     public void init() {
-        Role role = roleRepository.findByRoleName("root")
+        Role root = roleRepository.findByRoleName("root")
                 .orElseGet(() -> roleRepository.save(Role.builder()
                         .roleName("root")
+                        .createUser("system")
+                        .updateUser("system")
+                        .build()));
+        Role readOnly = roleRepository.findByRoleName(Role.READ_ONLY)
+                .orElseGet(() -> roleRepository.save(Role.builder()
+                        .roleName(Role.READ_ONLY)
                         .createUser("system")
                         .updateUser("system")
                         .build()));
@@ -51,10 +57,10 @@ public class RootInitializer {
                         .createUser("system")
                         .updateUser("system")
                         .password(passwordEncoder.encode(password))
-                        .roles(Set.of(role))
+                        .roles(Set.of(root))
                         .build()));
-        if (user.getRoles() == null || !user.getRoles().contains(role)) {
-            user.setRoles(Set.of(role));
+        if (user.getRoles() == null || !user.getRoles().contains(root)) {
+            user.setRoles(Set.of(root));
             userRepository.save(user);
         }
         Set<String> authorities = applicationContext.getBean(RequestMappingHandlerMapping.class)
@@ -71,9 +77,18 @@ public class RootInitializer {
                     return methods
                             .flatMap(method -> patterns.map(pattern -> method + ":" + pattern));
                 }).collect(Collectors.toSet());
-        if (!Objects.equals(authorities, role.getAuthorities())) {
-            role.setAuthorities(authorities);
-            roleRepository.save(role);
+        if (!Objects.equals(authorities, root.getAuthorities())) {
+            root.setAuthorities(authorities);
+            roleRepository.save(root);
         }
+
+        Set<String> readOnlyAuthorities = authorities
+                .stream().filter(authority -> authority.startsWith("GET"))
+                .collect(Collectors.toSet());
+        if (!Objects.equals(readOnlyAuthorities, readOnly.getAuthorities())) {
+            readOnly.setAuthorities(readOnlyAuthorities);
+            roleRepository.save(readOnly);
+        }
+
     }
 }

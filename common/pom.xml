@@ -16,5 +16,6 @@
         <module>common-api</module>
         <module>common-support</module>
         <module>common-rest</module>
+        <module>common-util</module>
     </modules>
 </project>

@@ -1,11 +1,11 @@
 package io.tzk.restful.generator.admin.rest.controller;
 
-import io.swagger.v3.oas.annotations.Operation;
-import io.tzk.restful.generator.admin.api.domain.entity.User;
+import io.tzk.restful.generator.admin.api.domain.dto.req.UserCReq;
+import io.tzk.restful.generator.admin.api.domain.dto.res.UserRes;
 import io.tzk.restful.generator.admin.api.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -17,18 +17,15 @@ public class UserController {
 
     private final UserService userService;
 
-    private final PasswordEncoder passwordEncoder;
-
     @PostMapping
-    @Operation(summary = "创建用户")
-    public ResponseEntity<Long> create(@RequestBody @Valid User condition) {
-        condition.setPassword(passwordEncoder.encode(condition.getPassword()));
+    @PreAuthorize("hasAuthority('POST:/user')")
+    public ResponseEntity<Long> create(@RequestBody @Valid UserCReq condition) {
         return ResponseEntity.ok(userService.save(condition));
     }
 
     @GetMapping("{userId}")
-    @Operation(summary = "查看用户")
-    public ResponseEntity<User> get(@PathVariable(value = "userId") Long userId) {
+    @PreAuthorize("hasAuthority('GET:/user/{userId}')")
+    public ResponseEntity<UserRes> get(@PathVariable(value = "userId") Long userId) {
         return ResponseEntity.ok(userService.getById(userId));
     }
 

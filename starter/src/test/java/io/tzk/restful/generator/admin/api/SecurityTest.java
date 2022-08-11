@@ -3,7 +3,7 @@ package io.tzk.restful.generator.admin.api;
 import io.jsonwebtoken.Claims;
 import io.tzk.restful.generator.ApplicationStarter;
 import io.tzk.restful.generator.admin.rest.util.JwtUtil;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 

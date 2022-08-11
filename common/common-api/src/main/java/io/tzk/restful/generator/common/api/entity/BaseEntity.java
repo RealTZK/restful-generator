@@ -1,6 +1,5 @@
 package io.tzk.restful.generator.common.api.entity;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -15,8 +14,6 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import static io.swagger.v3.oas.annotations.media.Schema.AccessMode;
-
 @Data
 @SuperBuilder
 @NoArgsConstructor
@@ -27,32 +24,26 @@ public class BaseEntity implements Serializable {
     @Serial
     private final static long serialVersionUID = 1L;
 
-    @Schema(title = "id", accessMode = AccessMode.READ_ONLY)
     @Id
     @GeneratedValue
     private Long id;
 
-    @Schema(title = "创建用户", accessMode = AccessMode.READ_ONLY)
     @CreatedBy
     @Column(nullable = false)
     private String createUser;
 
-    @Schema(title = "更新用户", accessMode = AccessMode.READ_ONLY)
     @LastModifiedBy
     @Column(nullable = false)
     private String updateUser;
 
-    @Schema(title = "创建时间", accessMode = AccessMode.READ_ONLY)
     @CreatedDate
     @Column(nullable = false)
     private LocalDateTime createTime;
 
-    @Schema(title = "更新时间", accessMode = AccessMode.READ_ONLY)
     @LastModifiedDate
     @Column(nullable = false)
     private LocalDateTime updateTime;
 
-    @Schema(title = "版本号", accessMode = AccessMode.READ_ONLY)
     @Version
     private Integer version;
 
