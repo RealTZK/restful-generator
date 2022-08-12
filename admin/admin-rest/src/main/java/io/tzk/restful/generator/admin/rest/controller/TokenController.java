@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,7 +32,6 @@ public class TokenController {
     private final TokenConverter tokenConverter;
 
     @PostMapping
-    @PreAuthorize("isAnonymous()")
     public ResponseEntity<String> login(@RequestBody @Valid AuthReq req, HttpServletResponse response) {
         Optional.of(tokenService.login(req))
                 .map(tokenConverter::convert)

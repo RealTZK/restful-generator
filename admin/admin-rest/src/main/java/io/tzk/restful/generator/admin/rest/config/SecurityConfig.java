@@ -6,12 +6,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authorization.AuthorizationDecision;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -20,10 +21,12 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Collection;
+
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
 @RequiredArgsConstructor
 public class SecurityConfig {
 
@@ -41,7 +44,15 @@ public class SecurityConfig {
                         .antMatchers(HttpMethod.GET, "/swagger-ui/*").permitAll()
                         .antMatchers(HttpMethod.GET, "/api-docs/*").permitAll()
                         .antMatchers(HttpMethod.GET, "/api-docs").permitAll()
-                        .anyRequest().authenticated()
+                        .anyRequest().access(((authenticationSupplier, requestAuthorizationContext) -> {
+                            Collection<? extends GrantedAuthority> authorities = authenticationSupplier.get().getAuthorities();
+                            HttpServletRequest request = requestAuthorizationContext.getRequest();
+                            String method = request.getMethod();
+                            String requestURI = request.getRequestURI();
+                            boolean granted = authorities.stream()
+                                    .anyMatch(authority -> authority.getAuthority().equals(method + ":" + requestURI));
+                            return new AuthorizationDecision(granted);
+                        }))
                 )
                 .cors(withDefaults())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
@@ -82,4 +93,5 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
         return configuration.getAuthenticationManager();
     }
+
 }
