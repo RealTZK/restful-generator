@@ -33,7 +33,7 @@ public class Connector extends BaseEntity {
     @Column(nullable = false)
     private String dVersion;
 
-    @OneToMany(mappedBy = "source")
+    @OneToMany(mappedBy = "connector")
     private Set<Source> sources;
 
 }
