@@ -24,10 +24,10 @@ spring:
 
 springdoc:
   swagger-ui:
-    # http://localhost:8080/swagger
+    # http://host:port/swagger
     path: /swagger-ui
   api-docs:
-    # http://localhost:8080/api-docs
+    # http://host:port/api-docs
     path: /api-docs
 
 logging:
