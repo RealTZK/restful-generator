@@ -23,3 +23,11 @@ jobs:
         with:
           name: application.tar.gz
           path: starter/target/restful-generator-bin.tar.gz
+      - name: copy file via ssh password
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          source: "starter/target/restful-generator-bin.tar.gz"
+          target: "home/${{ secrets.USERNAME }}/app"
