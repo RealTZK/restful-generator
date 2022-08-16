@@ -33,7 +33,7 @@ jobs:
         with:
           command: | # 命令中的 & 表示在后台运行进程
             cd /home/${{ secrets.USERNAME }}
-            ls
+            ls -l
           host: ${{ secrets.HOST }}
           user: ${{ secrets.USERNAME }}
           pass: ${{ secrets.PASSWORD }}
