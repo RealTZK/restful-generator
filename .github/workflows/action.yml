@@ -18,17 +18,21 @@ jobs:
           cache: maven
       - name: Build with Maven
         run: mvn clean package
-      - run: mkdir staging && cp starter/target/restful-generator-bin.tar.gz staging
-      - uses: actions/upload-artifact@v3
+      - name: deploy app
+        uses: garygrossgarten/github-action-scp@release
         with:
-          name: Package
-          path: staging
-      - name: start app
-        uses: appleboy/ssh-action@master
-        with:
+          local: starter/target/restful-generator-bin.tar.gz
+          remote: /home/${{ secrets.USERNAME }}/app/restful-generator-bin.tar.gz
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
-          script: |
-            cd /home/${{ secrets.USERNAME }}/
+      - name: start app
+        if: always()
+        uses: fifsky/ssh-action@master
+        with:
+          command: | # 命令中的 & 表示在后台运行进程
+            cd /home/${{ secrets.USERNAME }}
             ls
+          host: ${{ secrets.HOST }}
+          user: ${{ secrets.USERNAME }}
+          pass: ${{ secrets.PASSWORD }}
