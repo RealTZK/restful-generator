@@ -18,7 +18,7 @@ jobs:
           cache: maven
       - name: Build with Maven
         run: mvn clean package
-      - run: mkdir staging && cp target/*.jar staging
+      - run: mkdir staging && cp starter/target/*.tar.gz staging
       - uses: actions/upload-artifact@v3
         with:
           name: Package
