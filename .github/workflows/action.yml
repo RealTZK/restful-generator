@@ -18,15 +18,16 @@ jobs:
           cache: maven
       - name: Build with Maven
         run: mvn clean package
-      - name: deploy app
-        uses: garygrossgarten/github-action-scp@release
-        with:
-          local: starter/target/restful-generator-bin.tar.gz
-          remote: /home/${{ secrets.USERNAME }}/app/restful-generator-bin.tar.gz
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
-      - name: start app
+#      - name: Start App
+#        uses: sebastianpopp/ftp-action@releases/v2
+#        with:
+#          host: ${{ secrets.HOST }}
+#          user: ${{ secrets.USERNAME }}
+#          password: ${{ secrets.PASSWORD }}
+#          localDir: "starter/target/restful-generator-bin.tar.gz"
+#          remoteDir: "/home/${{ secrets.USERNAME }}/app/"
+#          options: "--delete --asci"
+      - name: Start App
         if: always()
         uses: fifsky/ssh-action@master
         with:
