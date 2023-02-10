@@ -9,4 +9,17 @@
 
     <artifactId>core-rest</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>io.tzk.restful</groupId>
+            <artifactId>common-rest</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.tzk.restful</groupId>
+            <artifactId>core-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+
 </project>

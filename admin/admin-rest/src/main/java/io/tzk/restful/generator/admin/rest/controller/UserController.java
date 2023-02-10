@@ -7,7 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
+import java.net.URI;
 
 @RestController
 @RequiredArgsConstructor
@@ -17,13 +18,18 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public ResponseEntity<Long> create(@RequestBody @Valid UserCReq condition) {
-        return ResponseEntity.ok(userService.save(condition));
+    public ResponseEntity<Void> create(@RequestBody @Valid UserCReq req) {
+        return ResponseEntity.created(URI.create("/user/%d".formatted(userService.create(req)))).build();
     }
 
     @GetMapping("{userId}")
     public ResponseEntity<UserRes> get(@PathVariable(value = "userId") Long userId) {
-        return ResponseEntity.ok(userService.getById(userId));
+        return ResponseEntity.ok(userService.get(userId));
+    }
+
+    @PutMapping("{userId}")
+    public ResponseEntity<Void> update(@PathVariable(value = "userId") Long userId) {
+        return ResponseEntity.ok().build();
     }
 
 }

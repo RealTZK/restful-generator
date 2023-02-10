@@ -1,15 +1,14 @@
 package io.tzk.restful.generator.admin.support.repository;
 
-import io.tzk.restful.generator.admin.api.domain.entity.User;
+import io.tzk.restful.generator.admin.api.domain.entity.SysUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<SysUser, Long> {
 
-    Optional<User> findByUsername(String username);
+    Optional<SysUser> findByUsername(String username);
 
-    boolean existsByUsername(String username);
 }

@@ -1,7 +1,7 @@
 package io.tzk.restful.generator.init;
 
 import io.tzk.restful.generator.admin.api.domain.entity.Role;
-import io.tzk.restful.generator.admin.api.domain.entity.User;
+import io.tzk.restful.generator.admin.api.domain.entity.SysUser;
 import io.tzk.restful.generator.admin.support.repository.RoleRepository;
 import io.tzk.restful.generator.admin.support.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +12,7 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 import org.springframework.web.util.pattern.PathPattern;
 
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -50,8 +50,8 @@ public class RootInitializer {
                         .createUser("system")
                         .updateUser("system")
                         .build()));
-        User user = userRepository.findByUsername(username)
-                .orElseGet(() -> userRepository.save(User.builder()
+        SysUser sysUser = userRepository.findByUsername(username)
+                .orElseGet(() -> userRepository.save(SysUser.builder()
                         .username(username)
                         .nickname(password)
                         .createUser("system")
@@ -59,9 +59,9 @@ public class RootInitializer {
                         .password(passwordEncoder.encode(password))
                         .roles(Set.of(root))
                         .build()));
-        if (user.getRoles() == null || !user.getRoles().contains(root)) {
-            user.setRoles(Set.of(root));
-            userRepository.save(user);
+        if (sysUser.getRoles() == null || !sysUser.getRoles().contains(root)) {
+            sysUser.setRoles(Set.of(root));
+            userRepository.save(sysUser);
         }
         Set<String> authorities = applicationContext.getBean(RequestMappingHandlerMapping.class)
                 .getHandlerMethods()
@@ -81,7 +81,6 @@ public class RootInitializer {
             root.setAuthorities(authorities);
             roleRepository.save(root);
         }
-
         Set<String> readOnlyAuthorities = authorities
                 .stream().filter(authority -> authority.startsWith("GET"))
                 .collect(Collectors.toSet());

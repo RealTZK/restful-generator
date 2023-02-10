@@ -1,6 +1,6 @@
 package io.tzk.restful.generator.admin.rest.config;
 
-import io.tzk.restful.generator.admin.api.domain.entity.User;
+import io.tzk.restful.generator.admin.api.domain.entity.SysUser;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.core.Authentication;
@@ -14,7 +14,7 @@ public class SecurityAuditorAware implements AuditorAware<String> {
     public Optional<String> getCurrentAuditor() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return Optional.ofNullable(authentication)
-                .map(au -> (User) au.getPrincipal())
-                .map(User::getUsername);
+                .map(au -> (SysUser) au.getPrincipal())
+                .map(SysUser::getUsername);
     }
 }

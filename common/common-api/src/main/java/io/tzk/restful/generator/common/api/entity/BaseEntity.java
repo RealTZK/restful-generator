@@ -1,5 +1,6 @@
 package io.tzk.restful.generator.common.api.entity;
 
+import jakarta.persistence.Column;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -9,7 +10,7 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;

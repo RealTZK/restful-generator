@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import java.util.Optional;
 
 import static io.tzk.restful.generator.admin.rest.util.JwtUtil.TOKEN_PREFIX;
@@ -32,13 +32,13 @@ public class TokenController {
     private final TokenConverter tokenConverter;
 
     @PostMapping
-    public ResponseEntity<String> login(@RequestBody @Valid AuthReq req, HttpServletResponse response) {
+    public ResponseEntity<Void> login(@RequestBody @Valid AuthReq req, HttpServletResponse response) {
         Optional.of(tokenService.login(req))
                 .map(tokenConverter::convert)
                 .map(serializer::serialize)
                 .map(JwtUtil::createJWT)
                 .ifPresent(jwt -> response.setHeader(HttpHeaders.AUTHORIZATION, TOKEN_PREFIX + jwt));
-        return ResponseEntity.status(HttpStatus.CREATED.value()).body(HttpStatus.CREATED.getReasonPhrase());
+        return ResponseEntity.status(HttpStatus.CREATED.value()).build();
     }
 
 }

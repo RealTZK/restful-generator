@@ -5,7 +5,7 @@ import io.tzk.restful.generator.admin.api.domain.dto.res.UserRes;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 public interface UserService extends UserDetailsService {
-    UserRes getById(Long id);
+    UserRes get(Long id);
 
-    Long save(UserCReq condition);
+    Long create(UserCReq req);
 }

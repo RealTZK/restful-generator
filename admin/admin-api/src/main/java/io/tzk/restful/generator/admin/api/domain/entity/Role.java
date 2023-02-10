@@ -6,8 +6,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.Set;
 
 @Getter
@@ -15,6 +17,8 @@ import java.util.Set;
 @SuperBuilder
 @NoArgsConstructor
 @Entity
+@DynamicInsert
+@DynamicUpdate
 public class Role extends BaseEntity {
 
     public static final String READ_ONLY = "read-only";
@@ -27,5 +31,5 @@ public class Role extends BaseEntity {
 
     @ManyToMany(mappedBy = "roles")
     @JsonIgnore
-    private Set<User> users;
+    private Set<SysUser> sysUsers;
 }

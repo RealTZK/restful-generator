@@ -10,8 +10,6 @@ public class JsonConfig {
 
     @Bean
     public Jackson2ObjectMapperBuilderCustomizer jsonCustomizer() {
-        return builder -> {
-            builder.modules(new JavaTimeModule());
-        };
+        return builder -> builder.modules(new JavaTimeModule());
     }
 }

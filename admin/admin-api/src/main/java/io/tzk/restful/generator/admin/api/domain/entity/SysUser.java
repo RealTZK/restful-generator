@@ -8,10 +8,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.Optional;
@@ -23,9 +24,9 @@ import java.util.stream.Collectors;
 @SuperBuilder
 @NoArgsConstructor
 @Entity
-@Table(name = "users")
 @DynamicInsert
-public class User extends BaseEntity implements UserDetails {
+@DynamicUpdate
+public class SysUser extends BaseEntity implements UserDetails {
 
     @Column(unique = true, nullable = false)
     private String username;

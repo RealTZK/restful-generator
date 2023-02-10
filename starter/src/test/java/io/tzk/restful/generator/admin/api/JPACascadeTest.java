@@ -2,7 +2,7 @@ package io.tzk.restful.generator.admin.api;
 
 import io.tzk.restful.generator.ApplicationStarter;
 import io.tzk.restful.generator.admin.api.domain.entity.Role;
-import io.tzk.restful.generator.admin.api.domain.entity.User;
+import io.tzk.restful.generator.admin.api.domain.entity.SysUser;
 import io.tzk.restful.generator.admin.support.repository.RoleRepository;
 import io.tzk.restful.generator.admin.support.repository.UserRepository;
 import org.junit.jupiter.api.Test;
@@ -11,8 +11,8 @@ import org.springframework.security.authentication.TestingAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.Resource;
 import java.util.Set;
 
 @SpringBootTest(classes = ApplicationStarter.class)
@@ -36,7 +36,7 @@ public class JPACascadeTest {
 
     @Test
     public void save1() {
-        var user = User.builder()
+        var user = SysUser.builder()
                 .username("root")
                 .nickname("root")
                 .createUser("root")

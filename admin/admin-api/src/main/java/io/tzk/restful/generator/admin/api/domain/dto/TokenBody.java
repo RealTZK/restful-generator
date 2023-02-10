@@ -2,7 +2,7 @@ package io.tzk.restful.generator.admin.api.domain.dto;
 
 import io.tzk.restful.generator.admin.api.domain.PathGrantedAuthority;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 import java.util.Collection;
 
 public record TokenBody(
