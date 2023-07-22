@@ -1,12 +1,10 @@
 package io.tzk.restful.generator.core.api.domain.dto.res;
 
-import io.tzk.restful.generator.core.api.enums.Connector;
-import io.tzk.restful.generator.core.api.enums.SourceType;
+import io.tzk.restful.generator.core.api.enums.DataSourceType;
 
 public record SourceRes(
         String name,
-        SourceType type,
+        DataSourceType type,
         String url,
-        String username,
-        Connector connector) {
+        String username) {
 }

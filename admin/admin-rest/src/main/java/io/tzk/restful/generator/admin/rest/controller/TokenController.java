@@ -22,7 +22,7 @@ import static io.tzk.restful.generator.admin.rest.util.JwtUtil.TOKEN_PREFIX;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("token")
+@RequestMapping("tokens")
 public class TokenController {
 
     private final TokenService tokenService;
@@ -36,7 +36,7 @@ public class TokenController {
         Optional.of(tokenService.login(req))
                 .map(tokenConverter::convert)
                 .map(serializer::serialize)
-                .map(JwtUtil::createJWT)
+                .map(JwtUtil::createToken)
                 .ifPresent(jwt -> response.setHeader(HttpHeaders.AUTHORIZATION, TOKEN_PREFIX + jwt));
         return ResponseEntity.status(HttpStatus.CREATED.value()).build();
     }

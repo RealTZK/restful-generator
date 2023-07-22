@@ -1,14 +1,21 @@
 package io.tzk.restful.generator.admin.api;
 
-import io.jsonwebtoken.Claims;
-import io.tzk.restful.generator.ApplicationStarter;
+import io.tzk.restful.generator.admin.api.domain.dto.TokenBody;
 import io.tzk.restful.generator.admin.rest.util.JwtUtil;
+import io.tzk.restful.generator.common.util.serialize.JSON;
+import jakarta.annotation.Resource;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-@SpringBootTest(classes = ApplicationStarter.class)
+import java.util.Collections;
+
+@SpringBootTest
 public class SecurityTest {
+
+    @Resource
+    private JSON serializer;
 
     @Test
     public void testPasswordEncoder() {
@@ -20,9 +27,11 @@ public class SecurityTest {
     }
 
     @Test
-    public void testTokenParser(){
-        String token = "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIyZGJhNTBlYzdhMmE0MGEyODk4NDhlMDc3MWZlZDQwZiIsInN1YiI6IntcImFjY291bnRcIjpudWxsLFwidXNlcm5hbWVcIjpudWxsLFwiYWNjb3VudE5vbkV4cGlyZWRcIjp0cnVlLFwiYWNjb3VudE5vbkxvY2tlZFwiOnRydWUsXCJjcmVkZW50aWFsc05vbkV4cGlyZWRcIjp0cnVlLFwiZW5hYmxlZFwiOnRydWUsXCJhdXRob3JpdGllc1wiOltdfSIsImlzcyI6InJlc3RmdWwtZ2VuZXJhdG9yLmFkbWluIiwiaWF0IjoxNjU4OTg3MDQzLCJleHAiOjE2NTg5OTA2NDN9.LzEuGKQa4vyot1rYXQjAhmGq6yuwc19dViKymBGo0Ac";
-        Claims claims = JwtUtil.parseJWT(token);
-        System.out.println(claims);
+    public void testJwtUtil() {
+        TokenBody tokenBody = new TokenBody("tzk", true, true, true, true, Collections.emptyList());
+        String subject = serializer.serialize(tokenBody);
+        String token = JwtUtil.createToken(subject);
+        String parsedToken = JwtUtil.parseToken(token);
+        Assertions.assertEquals(subject, parsedToken);
     }
 }

@@ -1,11 +1,11 @@
 package io.tzk.restful.generator.core.api.service;
 
-import io.tzk.restful.generator.core.api.domain.dto.req.SourceCReq;
+import io.tzk.restful.generator.core.api.domain.dto.req.DataSourceCReq;
 import io.tzk.restful.generator.core.api.domain.dto.res.SourceRes;
 
-public interface SourceService {
+public interface DataSourceService {
 
-    Long save(SourceCReq req);
+    Long create(DataSourceCReq req);
 
     SourceRes get(Long id);
 }

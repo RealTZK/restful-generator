@@ -17,14 +17,14 @@ APPLICATION="restful-generator"
 APPLICATION_JAR="${APPLICATION}-${VERSION}.jar"
 
 # bin目录绝对路径
-BIN_PATH=$(cd `dirname $0`; pwd)
+BIN_PATH=$(cd "$(dirname "$0")" || exit; pwd)
 # 进入bin目录
-cd `dirname $0`
+cd "$(dirname "$0")" || exit
 # 返回到上一级项目根目录路径
 cd ..
 # 打印项目根目录绝对路径
 # `pwd` 执行系统命令并获得结果
-BASE_PATH=`pwd`
+BASE_PATH=$(pwd)
 
 # 外部配置文件绝对目录,如果是目录需要/结尾，也可以直接指定文件
 # 如果指定的是目录,spring则会读取目录中的所有配置文件
@@ -41,8 +41,8 @@ LOG_BACK_DIR="${LOG_DIR}/back/"
 LOG_STARTUP_PATH="${LOG_DIR}/${APPLICATION}_startup.log"
 
 # 当前时间
-NOW=`date +'%Y-%m-%m-%H-%M-%S'`
-NOW_PRETTY=`'date +%Y-%m-%m %H:%M:%S'`
+NOW=$(date +'%Y-%m-%m-%H-%M-%S')
+NOW_PRETTY=$('date +%Y-%m-%m %H:%M:%S')
 
 # 启动日志
 STARTUP_LOG="================================================ ${NOW_PRETTY} ================================================\n"
@@ -59,14 +59,14 @@ fi
 
 # 如果项目运行日志存在,则重命名备份
 if [[ -f "${LOG_PATH}" ]]; then
-	mv ${LOG_PATH} "${LOG_BACK_DIR}/${APPLICATION}_back_${NOW}.log"
+	mv "${LOG_PATH}" "${LOG_BACK_DIR}/${APPLICATION}_back_${NOW}.log"
 fi
 
 # 创建新的项目运行日志
-echo "" > ${LOG_PATH}
+echo "" > "${LOG_PATH}"
 
 # 如果项目启动日志不存在,则创建,否则追加
-echo "${STARTUP_LOG}" >> ${LOG_STARTUP_PATH}
+echo "${STARTUP_LOG}" >> "${LOG_STARTUP_PATH}"
 
 #==========================================================================================
 # JVM Configuration
@@ -106,17 +106,17 @@ STARTUP_LOG="${STARTUP_LOG}application background startup command: nohup java ${
 #======================================================================
 # 执行启动命令：后台启动项目,并将日志输出到项目根目录下的logs文件夹下
 #======================================================================
-nohup java ${JAVA_OPT} -jar ${BASE_PATH}/boot/${APPLICATION_JAR} --spring.config.location=${CONFIG_DIR} > ${LOG_PATH} 2>&1 &
+nohup java "${JAVA_OPT}" -jar "${BASE_PATH}"/boot/${APPLICATION_JAR} --spring.config.location="${CONFIG_DIR}" > "${LOG_PATH}" 2>&1 &
 
 
 # 进程ID
-PID=$(ps -ef | grep "${APPLICATION_JAR}" | grep -v grep | awk '{ print $2 }')
+PID=$(pgrep "${APPLICATION_JAR}")
 STARTUP_LOG="${STARTUP_LOG}application pid: ${PID}\n"
 
 # 启动日志追加到启动日志文件中
-echo -e ${STARTUP_LOG} >> ${LOG_STARTUP_PATH}
+echo -e "${STARTUP_LOG}" >> "${LOG_STARTUP_PATH}"
 # 打印启动日志
-echo -e ${STARTUP_LOG}
+echo -e "${STARTUP_LOG}"
 
 # 打印项目日志
-tail -f ${LOG_PATH}
+tail -f "${LOG_PATH}"

@@ -21,7 +21,8 @@ import java.util.Set;
 @DynamicUpdate
 public class Role extends BaseEntity {
 
-    public static final String READ_ONLY = "read-only";
+    public static final String GUEST = "guest";
+    public static final String ADMIN = "admin";
 
     @Column(nullable = false, unique = true)
     private String roleName;

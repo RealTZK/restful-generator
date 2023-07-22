@@ -6,9 +6,9 @@ import jakarta.validation.constraints.NotBlank;
 
 @Schema(title = "login param")
 public record AuthReq(
-        @Schema(required = true)
+        @Schema(requiredMode = Schema.RequiredMode.REQUIRED)
         @NotBlank String username,
-        @Schema(required = true)
+        @Schema(requiredMode = Schema.RequiredMode.REQUIRED)
         @NotBlank String password) {
 
 }

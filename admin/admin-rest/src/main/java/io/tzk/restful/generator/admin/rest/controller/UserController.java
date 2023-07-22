@@ -12,7 +12,7 @@ import java.net.URI;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("user")
+@RequestMapping("users")
 public class UserController {
 
     private final UserService userService;
@@ -25,11 +25,6 @@ public class UserController {
     @GetMapping("{userId}")
     public ResponseEntity<UserRes> get(@PathVariable(value = "userId") Long userId) {
         return ResponseEntity.ok(userService.get(userId));
-    }
-
-    @PutMapping("{userId}")
-    public ResponseEntity<Void> update(@PathVariable(value = "userId") Long userId) {
-        return ResponseEntity.ok().build();
     }
 
 }

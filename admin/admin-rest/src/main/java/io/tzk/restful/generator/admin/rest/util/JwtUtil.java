@@ -1,65 +1,43 @@
 package io.tzk.restful.generator.admin.rest.util;
 
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
-import java.util.Base64;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
-import java.util.UUID;
 
 public class JwtUtil {
 
-    private static final long JWT_TTL = 1000 * 60 * 60L;
-    private static final String JWT_KEY = "RESTFULGENERATOR";
-    public static final String TOKEN_PREFIX = "Bearer ";
+    public final static String TOKEN_PREFIX = "Bearer ";
 
-    private static String getUUID() {
-        return UUID.randomUUID().toString().replaceAll("-", "");
-    }
+    private final static String SECRET = "RESTFUL##GENERATOR##JSON##WEB##TOKEN==";
+    private final static long JWT_TTL = 1000 * 60 * 60L;
+    private final static SecretKey SECRET_KEY = new SecretKeySpec(SECRET.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
 
-    public static String createJWT(String subject) {
-        return builder(subject, -1, getUUID()).compact();
-    }
-
-    public static String createJWT(String subject, long ttl) {
-        return builder(subject, ttl, getUUID()).compact();
-    }
-
-    public static String createJWT(String id, String subject, long ttl) {
-        return builder(subject, ttl, id).compact();
-    }
-
-    private static JwtBuilder builder(String subject, long ttl, String uuid) {
-        SignatureAlgorithm algorithm = SignatureAlgorithm.HS256;
-        SecretKey secretKey = generalKey();
+    public static String createToken(String subject) {
         long now = System.currentTimeMillis();
-        if (ttl == -1) {
-            ttl = JWT_TTL;
-        }
-        long expTime = now + ttl;
         return Jwts.builder()
-                .setId(uuid)
                 .setSubject(subject)
-                .setIssuer("restful-generator.admin")
                 .setIssuedAt(new Date(now))
-                .signWith(algorithm, secretKey)
-                .setExpiration(new Date(expTime));
+                .setExpiration(new Date(now + JWT_TTL))
+                .signWith(SECRET_KEY, SignatureAlgorithm.HS256)
+                .compact();
     }
 
-    private static SecretKey generalKey() {
-        byte[] decode = Base64.getDecoder().decode(JWT_KEY);
-        return new SecretKeySpec(decode, 0, decode.length, "AES");
-    }
-
-    public static Claims parseJWT(String jwt) {
+    public static String parseToken(String token) {
         try {
-            return Jwts.parser()
-                    .setSigningKey(generalKey())
-                    .parseClaimsJws(jwt)
-                    .getBody();
-        }catch (Exception e){
-            throw new JwtException("token has been tampered");
+            Jws<Claims> claimsJws = Jwts.parserBuilder()
+                    .setSigningKey(SECRET_KEY)
+                    .build()
+                    .parseClaimsJws(token);
+            Claims claims = claimsJws.getBody();
+            return claims.getSubject();
+        } catch (Exception e) {
+            return null;
         }
     }
 }

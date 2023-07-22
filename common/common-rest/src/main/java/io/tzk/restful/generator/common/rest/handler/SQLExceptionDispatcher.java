@@ -1,4 +1,4 @@
-package io.tzk.restful.generator.admin.rest.handler;
+package io.tzk.restful.generator.common.rest.handler;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.ArrayUtils;

@@ -1,16 +1,17 @@
 package io.tzk.restful.generator.core.api.domain.entity;
 
 import io.tzk.restful.generator.common.api.entity.BaseEntity;
-import io.tzk.restful.generator.core.api.enums.Connector;
-import io.tzk.restful.generator.core.api.enums.SourceType;
+import io.tzk.restful.generator.core.api.enums.DataSourceType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-
-import jakarta.persistence.*;
 
 @Getter
 @Setter
@@ -19,14 +20,14 @@ import jakarta.persistence.*;
 @Entity
 @DynamicInsert
 @DynamicUpdate
-public class Source extends BaseEntity {
+public class DataSource extends BaseEntity {
 
     @Column(nullable = false, unique = true)
     private String name;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private SourceType type;
+    private DataSourceType type;
 
     @Column(nullable = false)
     private String url;
@@ -34,7 +35,4 @@ public class Source extends BaseEntity {
     private String username;
 
     private String password;
-
-    @Enumerated(EnumType.STRING)
-    private Connector connector;
 }

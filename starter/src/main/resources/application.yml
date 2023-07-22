@@ -30,6 +30,15 @@ springdoc:
     # http://host:port/api-docs
     path: /api-docs
 
+system:
+  users:
+    admin:
+      username: root
+      password: root
+    guest:
+      username: guest
+      password: guest
+
 logging:
   level:
     root: INFO

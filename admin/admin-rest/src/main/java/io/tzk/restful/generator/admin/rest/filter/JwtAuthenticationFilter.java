@@ -33,7 +33,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         // get token and put it into SecurityContext
         Optional.ofNullable(request.getHeader(HttpHeaders.AUTHORIZATION))
                 .map(token -> token.replaceAll(TOKEN_PREFIX, ""))
-                .map(token -> JwtUtil.parseJWT(token).getSubject())
+                .map(JwtUtil::parseToken)
                 .map(subject -> serializer.deserialize(subject, TokenBody.class))
                 .map(tokenConverter::convert)
                 .ifPresent(user -> {

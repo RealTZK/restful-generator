@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
     public Long create(UserCReq req) {
         SysUser sysUser = userConverter.convert(req);
         sysUser.setPassword(passwordEncoder.encode(req.password()));
-        Set<Role> defaultRole = roleRepository.findByRoleName(Role.READ_ONLY).stream().collect(Collectors.toSet());
+        Set<Role> defaultRole = roleRepository.findByRoleName(Role.GUEST).stream().collect(Collectors.toSet());
         sysUser.setRoles(defaultRole);
         return userRepository.save(sysUser).getId();
     }

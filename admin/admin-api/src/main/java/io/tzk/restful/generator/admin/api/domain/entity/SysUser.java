@@ -38,16 +38,16 @@ public class SysUser extends BaseEntity implements UserDetails {
 
     private String email;
 
-    @Column(columnDefinition = "boolean default true")
+    @Column(columnDefinition = "BOOLEAN DEFAULT TRUE")
     private Boolean accountNonExpired;
 
-    @Column(columnDefinition = "boolean default true")
+    @Column(columnDefinition = "BOOLEAN DEFAULT TRUE")
     private Boolean accountNonLocked;
 
-    @Column(columnDefinition = "boolean default true")
+    @Column(columnDefinition = "BOOLEAN DEFAULT TRUE")
     private Boolean credentialsNonExpired;
 
-    @Column(columnDefinition = "boolean default true")
+    @Column(columnDefinition = "BOOLEAN DEFAULT TRUE")
     private Boolean enabled;
 
     @ManyToMany(fetch = FetchType.EAGER)
